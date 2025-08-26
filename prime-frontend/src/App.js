@@ -4,261 +4,324 @@ const styles = {
   // Main container styles
   appContainer: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #1e293b 0%, #7c3aed 35%, #1e293b 100%)',
-    fontFamily: 'Arial, sans-serif'
+    background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%)',
+    fontFamily: "'Inter', 'Segoe UI', system-ui, sans-serif"
   },
-  
+
   // Container and layout
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '32px 16px'
+    padding: '40px 20px'
   },
-  
+
   // Header styles
   header: {
     textAlign: 'center',
-    marginBottom: '48px'
+    marginBottom: '60px'
   },
+
   mainTitle: {
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: '16px'
+    fontSize: '3.5rem',
+    fontWeight: '800',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    marginBottom: '20px',
+    letterSpacing: '-0.02em'
   },
+
   subtitle: {
-    fontSize: '1.25rem',
-    color: '#d1d5db',
-    maxWidth: '768px',
-    margin: '0 auto'
+    fontSize: '1.3rem',
+    color: 'rgba(255, 255, 255, 0.8)',
+    maxWidth: '800px',
+    margin: '0 auto',
+    lineHeight: '1.6',
+    fontWeight: '300'
   },
-  
-  // Card grid and individual cards
+
+  // Card grid
   cardGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '24px'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+    gap: '30px',
+    padding: '20px 0'
   },
-  questionCard: {
-    padding: '24px',
-    borderRadius: '12px',
+
+  // Evervault-style card container
+  evervaultCardContainer: {
+    position: 'relative',
+    borderRadius: '24px',
+    padding: '2px',
+    background: 'transparent',
     cursor: 'pointer',
-    transform: 'scale(1)',
+    minHeight: '200px',
+    overflow: 'hidden'
+  },
+
+  // Card inner content
+  questionCard: {
+    position: 'relative',
+    height: '100%',
+    padding: '30px',
+    borderRadius: '22px',
+    background: 'rgba(15, 15, 35, 0.8)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
     transition: 'all 0.3s ease',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+    zIndex: 2,
+    overflow: 'hidden'
   },
-  questionCardHover: {
-    transform: 'scale(1.05)',
-    boxShadow: '0 20px 25px rgba(0, 0, 0, 0.3)'
+
+  // Background pattern overlay (hidden by default)
+  backgroundPattern: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: '22px',
+    background: 'linear-gradient(45deg, #10b981, #3b82f6)',
+    opacity: 0,
+    transition: 'opacity 0.5s ease',
+    zIndex: 1
   },
-  cardTitle: {
-    fontSize: '1.5rem',
+
+  // Random text overlay (hidden by default)
+  textOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: '22px',
+    padding: '20px',
+    fontSize: '10px',
+    fontFamily: 'monospace',
     fontWeight: 'bold',
+    color: 'rgba(255, 255, 255, 0.3)',
+    lineHeight: '12px',
+    wordBreak: 'break-all',
+    opacity: 0,
+    transition: 'opacity 0.5s ease',
+    zIndex: 1,
+    overflow: 'hidden'
+  },
+
+  cardTitle: {
+    fontSize: '1.6rem',
+    fontWeight: '700',
     color: 'white',
-    marginBottom: '12px'
+    marginBottom: '15px',
+    letterSpacing: '-0.01em',
+    position: 'relative',
+    zIndex: 10
   },
-  cardSubtitle: {
-    fontSize: '1.125rem',
-    fontWeight: '600',
-    color: 'rgba(255, 255, 255, 0.9)',
-    marginBottom: '12px'
-  },
+
   cardDescription: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: '0.875rem',
-    lineHeight: '1.5'
+    color: 'rgba(255, 255, 255, 0.75)',
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    fontWeight: '400',
+    position: 'relative',
+    zIndex: 10
   },
-  
-  // Question detail view
+
+  // Question detail view (keeping your existing styles)
   questionDetail: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #1e293b 0%, #7c3aed 35%, #1e293b 100%)'
+    background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%)'
   },
+
   backButton: {
-    marginBottom: '24px',
-    padding: '12px 16px',
-    backgroundColor: '#475569',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontSize: '1rem',
-    transition: 'background-color 0.2s'
-  },
-  backButtonHover: {
-    backgroundColor: '#334155'
-  },
-  questionHeader: {
-    padding: '24px',
-    borderRadius: '12px',
-    color: 'white',
-    marginBottom: '32px'
-  },
-  questionTitle: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    marginBottom: '8px'
-  },
-  questionSubtitle: {
-    fontSize: '1.25rem',
-    marginBottom: '16px'
-  },
-  questionDesc: {
-    fontSize: '1.125rem',
-    opacity: 0.9
-  },
-  
-  // Action buttons
-  actionSection: {
-    marginBottom: '24px'
-  },
-  actionButton: {
+    marginBottom: '30px',
     padding: '12px 24px',
-    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.1)',
+    color: 'white',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    borderRadius: '12px',
+    cursor: 'pointer',
+    fontSize: '1rem',
     fontWeight: '500',
+    transition: 'all 0.2s ease',
+    backdropFilter: 'blur(10px)'
+  },
+
+  questionHeader: {
+    padding: '30px',
+    borderRadius: '20px',
+    background: 'rgba(15, 15, 35, 0.6)',
+    backdropFilter: 'blur(15px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    color: 'white',
+    marginBottom: '40px'
+  },
+
+  questionTitle: {
+    fontSize: '2.2rem',
+    fontWeight: '700',
+    marginBottom: '10px',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent'
+  },
+
+  questionDesc: {
+    fontSize: '1.2rem',
+    opacity: 0.9,
+    lineHeight: '1.6'
+  },
+
+  // Action buttons and inputs
+  actionSection: {
+    marginBottom: '30px'
+  },
+
+  actionButton: {
+    padding: '14px 28px',
+    borderRadius: '12px',
+    fontWeight: '600',
     border: 'none',
     cursor: 'pointer',
     fontSize: '1rem',
-    transition: 'background-color 0.2s',
-    color: 'white'
+    transition: 'all 0.2s ease',
+    color: 'white',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
   },
-  actionButtonDisabled: {
-    backgroundColor: '#6b7280',
-    cursor: 'not-allowed'
-  },
-  
-  // Input styles for Q7
+
   inputGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '16px',
-    marginBottom: '16px'
+    gap: '20px',
+    marginBottom: '20px'
   },
+
   inputGroup: {
     display: 'flex',
     flexDirection: 'column'
   },
+
   inputLabel: {
-    display: 'block',
     color: 'white',
     marginBottom: '8px',
-    fontSize: '0.875rem'
+    fontSize: '0.9rem',
+    fontWeight: '500'
   },
+
   input: {
     width: '100%',
-    padding: '12px',
-    borderRadius: '8px',
-    backgroundColor: '#1e293b',
+    padding: '14px 16px',
+    borderRadius: '12px',
+    background: 'rgba(255, 255, 255, 0.05)',
     color: 'white',
-    border: '1px solid #475569',
+    border: '1px solid rgba(255, 255, 255, 0.15)',
     fontSize: '1rem',
     outline: 'none',
-    transition: 'border-color 0.2s'
+    transition: 'all 0.2s ease',
+    backdropFilter: 'blur(10px)'
   },
-  inputFocus: {
-    borderColor: '#06b6d4'
+
+  streamSection: {
+    background: 'rgba(15, 15, 35, 0.6)',
+    backdropFilter: 'blur(15px)',
+    borderRadius: '20px',
+    padding: '30px',
+    border: '1px solid rgba(255, 255, 255, 0.1)'
   },
-  
-  // Prime tester section
-  primeTesterSection: {
-    backgroundColor: '#1e293b',
-    padding: '24px',
+
+  streamTitle: {
+    fontSize: '1.4rem',
+    fontWeight: '700',
+    color: 'white',
+    marginBottom: '20px'
+  },
+
+  streamOutput: {
+    background: 'rgba(0, 0, 0, 0.8)',
     borderRadius: '12px',
-    marginBottom: '32px'
+    padding: '20px',
+    height: '400px',
+    overflowY: 'auto',
+    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+    fontSize: '0.9rem',
+    border: '1px solid rgba(255, 255, 255, 0.1)'
   },
-  primeTesterTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: '16px'
+
+  streamEmpty: {
+    color: 'rgba(255, 255, 255, 0.5)',
+    fontStyle: 'italic'
   },
-  primeTesterInputs: {
-    display: 'flex',
-    gap: '16px',
-    marginBottom: '16px',
-    flexWrap: 'wrap'
+
+  streamLine: {
+    color: '#00ff88',
+    marginBottom: '6px',
+    wordBreak: 'break-all',
+    lineHeight: '1.4'
   },
-  primeTesterInput: {
-    flex: '1',
-    minWidth: '200px',
-    padding: '12px',
-    borderRadius: '8px',
-    backgroundColor: '#475569',
-    color: 'white',
-    border: '1px solid #64748b',
-    fontSize: '1rem',
-    outline: 'none'
-  },
-  
-  // Control buttons
-  controlSection: {
-    marginBottom: '24px'
-  },
+
   stopButton: {
     padding: '12px 24px',
-    backgroundColor: '#dc2626',
+    background: 'linear-gradient(135deg, #ff416c, #ff4b2b)',
     color: 'white',
     border: 'none',
-    borderRadius: '8px',
-    fontWeight: '500',
+    borderRadius: '12px',
+    fontWeight: '600',
     cursor: 'pointer',
     fontSize: '1rem',
-    transition: 'background-color 0.2s'
-  },
-  stopButtonHover: {
-    backgroundColor: '#b91c1c'
-  },
-  
-  // Stream output
-  streamSection: {
-    backgroundColor: '#1e293b',
-    borderRadius: '12px',
-    padding: '24px'
-  },
-  streamTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: '16px'
-  },
-  streamOutput: {
-    backgroundColor: '#000000',
-    borderRadius: '8px',
-    padding: '16px',
-    height: '384px',
-    overflowY: 'auto',
-    fontFamily: 'Monaco, monospace',
-    fontSize: '0.875rem'
-  },
-  streamEmpty: {
-    color: '#6b7280'
-  },
-  streamLine: {
-    color: '#10b981',
-    marginBottom: '4px',
-    wordBreak: 'break-all'
+    transition: 'all 0.2s ease',
+    boxShadow: '0 4px 15px rgba(255, 65, 108, 0.3)'
   }
 };
 
-// Color gradients for different questions
-const questionColors = {
-  1: 'linear-gradient(135deg, #9333ea, #ec4899)',
-  2: 'linear-gradient(135deg, #2563eb, #06b6d4)',
-  3: 'linear-gradient(135deg, #059669, #10b981)',
-  4: 'linear-gradient(135deg, #dc2626, #f97316)',
-  5: 'linear-gradient(135deg, #4f46e5, #9333ea)',
-  6: 'linear-gradient(135deg, #d97706, #f97316)',
-  7: 'linear-gradient(135deg, #0d9488, #059669)'
-};
+// CSS styles for hover effects and animations
+const globalStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  
+  .evervault-card:hover .background-pattern {
+    opacity: 0.6 !important;
+  }
+  
+  .evervault-card:hover .text-overlay {
+    opacity: 1 !important;
+  }
+  
+  .evervault-card:hover .question-card {
+    background: rgba(15, 15, 35, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-5px) !important;
+  }
+  
+  .input:focus {
+    border-color: rgba(102, 126, 234, 0.5) !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  }
+  
+  .action-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+  }
+  
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-2px) !important;
+  }
+  
+  .stop-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.4) !important;
+  }
+`;
 
-const buttonColors = {
-  1: { normal: '#9333ea', hover: '#7c3aed' },
-  2: { normal: '#2563eb', hover: '#1d4ed8' },
-  3: { normal: '#059669', hover: '#047857' },
-  4: { normal: '#dc2626', hover: '#b91c1c' },
-  5: { normal: '#4f46e5', hover: '#4338ca' },
-  6: { normal: '#d97706', hover: '#b45309' },
-  7: { normal: '#0d9488', hover: '#0f766e' }
+// Random string generator for the effect
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const generateRandomString = (length) => {
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
 };
 
 function App() {
@@ -270,8 +333,24 @@ function App() {
   const [q7E, setQ7E] = useState("");
   const [q7Start, setQ7Start] = useState("");
   const [q7Attempts, setQ7Attempts] = useState("");
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const [hoveredButton, setHoveredButton] = useState(null);
+  const [cardRandomStrings, setCardRandomStrings] = useState({});
+
+  // Add global styles
+  useEffect(() => {
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = globalStyles;
+    document.head.appendChild(styleSheet);
+    return () => document.head.removeChild(styleSheet);
+  }, []);
+
+  // Generate random strings for each card
+  useEffect(() => {
+    const strings = {};
+    questions.forEach(q => {
+      strings[q.id] = generateRandomString(1000);
+    });
+    setCardRandomStrings(strings);
+  }, []);
 
   // Cleanup on component unmount
   useEffect(() => {
@@ -323,18 +402,36 @@ function App() {
     }
   ];
 
+  // Handle mouse move for card effect
+  const handleCardMouseMove = (e, cardId) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Update the gradient position based on mouse position
+    const card = e.currentTarget;
+    const pattern = card.querySelector('.background-pattern');
+    if (pattern) {
+      pattern.style.background = `radial-gradient(250px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.6), rgba(59, 130, 246, 0.6), transparent)`;
+    }
+    
+    // Generate new random string on mouse move
+    setCardRandomStrings(prev => ({
+      ...prev,
+      [cardId]: generateRandomString(1000)
+    }));
+  };
+
+  // Your existing functions (keeping them unchanged)
   const stopStream = async () => {
     console.log('Stopping stream...');
     setIsStreaming(false);
-
     const { controller, reader } = streamStateRef.current;
-
     try {
       if (controller && !controller.signal.aborted) {
         console.log('Aborting controller...');
         controller.abort();
       }
-
       if (reader) {
         console.log('Cancelling reader...');
         try {
@@ -346,7 +443,6 @@ function App() {
     } catch (error) {
       console.log('Stop stream error (ignored):', error);
     }
-
     streamStateRef.current = { controller: null, reader: null };
     console.log('Stream stop complete');
   };
@@ -355,10 +451,8 @@ function App() {
     console.log('Starting stream to:', endpoint);
     await stopStream();
     await new Promise(resolve => setTimeout(resolve, 100));
-
     setStreamLogs([]);
     setIsStreaming(true);
-
     const controller = new AbortController();
     streamStateRef.current.controller = controller;
 
@@ -389,7 +483,6 @@ function App() {
           }
 
           const { done, value } = await reader.read();
-
           if (done) {
             console.log('Stream completed normally');
             break;
@@ -402,7 +495,6 @@ function App() {
 
           const chunk = decoder.decode(value);
           const lines = chunk.split('\n');
-
           for (const line of lines) {
             if (line.startsWith('data: ')) {
               try {
@@ -428,10 +520,7 @@ function App() {
     } catch (error) {
       if (error.name !== 'AbortError' && !controller.signal.aborted) {
         console.error('Stream error:', error);
-        setStreamLogs(prev => [...prev, {
-          type: 'error',
-          message: `Connection error: ${error.message}`
-        }]);
+        setStreamLogs(prev => [...prev, { type: 'error', message: `Connection error: ${error.message}` }]);
       } else {
         console.log('Stream fetch was aborted normally');
       }
@@ -488,123 +577,47 @@ function App() {
           return `🎯 Round ${log.round}: Testing base ${log.base} for p=${log.p || ''}, initial value: ${log.initial_value}`;
         }
         return `🎯 Round ${log.round}: Testing base ${log.base}, initial value: ${log.initial_value}`;
-
       case 'witness':
         if (log.result === 'composite') {
           return `❌ Base ${log.base} is a WITNESS (proves composite)`;
         } else {
           return `✅ Base ${log.base} passed (found ${log.value})`;
         }
-
       case 'square':
         return ` └─ Square ${log.iteration}: ${log.value}`;
-
       case 'small_prime_check':
         return log.result ? '✅ Found in small primes list' : '❌ Divisible by small prime';
-
       case 'small_prime_result':
         return log.result ? '✅ Found in small primes list' : '❌ Divisible by small prime';
-
       case 'result':
         if (log.testing_p) {
           return log.prime ? `🎉 p is PRIME: ${log.reason}` : `💥 p is NOT PRIME: ${log.reason}`;
         }
         return log.prime ? `🎉 RESULT: ${log.reason}` : `💥 RESULT: NOT PRIME (${log.reason})`;
-
       case 'checking':
         if (log.attempt !== undefined && log.p1 !== undefined && log.p2 !== undefined) {
-          // Question 7 format
           return `🔍 Attempt ${log.attempt}: Testing p2=${log.p2}, p1=${log.p1} (p1 = E + p2)`;
         } else if (log.n !== undefined) {
-          // Question 2 format
           return `🔍 Checking N=${log.n}, repunit=${log.number} (${log.length} digits)`;
         } else {
-          // Question 1 format
           return `🔍 Checking i=${log.i}, number=${log.number} (${log.length} digits)`;
         }
-
-      case 'checking_p':
-        return `🔍 Step 1: Testing if p=${log.p} is prime...`;
-
-      case 'p_rejected':
-        return `❌ p=${log.p} rejected: ${log.reason}`;
-
-      case 'p_prime':
-        return `✅ p=${log.p} is PRIME (via ${log.method})`;
-
-      case 'checking_mersenne':
-        return `🔍 Step 2: Testing Mersenne number 2^${log.p} - 1 = ${log.mersenne_display} (${log.mersenne_digits} digits)`;
-
-      case 'mersenne_found':
-        return `🏆 MERSENNE PRIME #${log.count}: 2^${log.p} - 1 (${log.mersenne_digits} digits) via ${log.method}`;
-
-      case 'mersenne_rejected':
-        return `❌ 2^${log.p} - 1 rejected: ${log.reason}`;
-
       case 'found':
         if (log.E !== undefined && log.p1 !== undefined && log.p2 !== undefined) {
-          // Question 7 format
           return `🏆 SOLUTION FOUND: E=${log.E}, p1=${log.p1}, p2=${log.p2} (difference=${log.difference}) after ${log.attempts} attempts`;
         } else if (log.n !== undefined) {
-          // Question 2 format
           return `🏆 FOUND REPUNIT PRIME #${log.count}: N=${log.n}, number=${log.number} (via ${log.method})`;
         } else {
-          // Question 1 format
           if (log.full_length) {
             return `🏆 FOUND PRIME: i=${log.i}, ${log.full_length} digit number: ${log.number} (via ${log.method})`;
           } else {
             return `🏆 FOUND PRIME: i=${log.i}, number=${log.number} (via ${log.method})`;
           }
         }
-
       case 'complete':
-        if (log.mersenne_primes) {
-          const primesList = Array.isArray(log.mersenne_primes) ?
-            log.mersenne_primes.map(item => {
-              if (Array.isArray(item) && item.length >= 3) {
-                const [p, _display, digits] = item;
-                return `p=${p} (${digits} digits)`;
-              }
-              return JSON.stringify(item);
-            }).join(', ') : '';
-          return `🎊 COMPLETE: ${log.message}${primesList ? ` - Primes: ${primesList}` : ''}`;
-        } else if (log.primes) {
-          const primesList = Array.isArray(log.primes) ?
-            log.primes.map(item => {
-              if (item && typeof item === 'object' && 'prime' in item && 'position' in item) {
-                return `Prime #${item.position}: ${item.prime}`;
-              }
-              if (Array.isArray(item) && item.length >= 2) {
-                const [a, b] = item;
-                return `N=${a} (${b})`;
-              }
-              return JSON.stringify(item);
-            }).join(', ') : '';
-          return `🎊 COMPLETE: ${log.message}${primesList ? ` - Primes found: ${primesList}` : ''}`;
-        }
         return `🎊 COMPLETE: ${log.message}`;
-
-      case 'verification':
-        return `✅ VERIFICATION: ${log.message}`;
-
-      case 'incomplete':
-        return `⚠️ INCOMPLETE: ${log.message}`;
-
-      case 'rejected':
-        return `❌ Rejected: ${log.reason}`;
-
-      case 'info':
-        return `ℹ️ ${log.message}`;
-
       case 'error':
         return `❌ Error: ${log.message}`;
-
-      case 'brocard_success':
-        return `🎊 BROCARD SUCCESS: ${log.message}`;
-
-      case 'brocard_failed':
-        return `❌ BROCARD FAILED: ${log.message}`;
-
       default:
         return `📝 ${log.message || JSON.stringify(log)}`;
     }
@@ -612,220 +625,139 @@ function App() {
 
   if (selectedCard) {
     return (
-      <div style={styles.appContainer}>
+      <div style={styles.questionDetail}>
         <div style={styles.container}>
           <button
-            style={{
-              ...styles.backButton,
-              ...(hoveredButton === 'back' ? styles.backButtonHover : {})
-            }}
-            onMouseEnter={() => setHoveredButton('back')}
-            onMouseLeave={() => setHoveredButton(null)}
+            style={styles.backButton}
+            className="back-button"
             onClick={() => setSelectedCard(null)}
           >
             ← Back to Questions
           </button>
-
-          <div style={{
-            ...styles.questionHeader,
-            background: questionColors[selectedCard.id]
-          }}>
-            <h1 style={styles.questionTitle}>Question {selectedCard.id}</h1>
-            <h2 style={styles.questionSubtitle}>{selectedCard.title}</h2>
+          
+          <div style={styles.questionHeader}>
+            <h1 style={styles.questionTitle}>{selectedCard.title}</h1>
             <p style={styles.questionDesc}>{selectedCard.description}</p>
           </div>
 
-          {selectedCard.id === 1 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion1}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q1' ? buttonColors[1].hover : buttonColors[1].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q1')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 1'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 2 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion2}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q2' ? buttonColors[2].hover : buttonColors[2].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q2')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 2'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 3 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion3}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q3' ? buttonColors[3].hover : buttonColors[3].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q3')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 3'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 4 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion4}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q4' ? buttonColors[4].hover : buttonColors[4].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q4')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 4'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 5 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion5}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q5' ? buttonColors[5].hover : buttonColors[5].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q5')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 5'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 6 && (
-            <div style={styles.actionSection}>
-              <button
-                onClick={runQuestion6}
-                disabled={isStreaming}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: isStreaming ? '#6b7280' : 
-                    (hoveredButton === 'q6' ? buttonColors[6].hover : buttonColors[6].normal),
-                  ...(isStreaming ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q6')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 6'}
-              </button>
-            </div>
-          )}
-
-          {selectedCard.id === 7 && (
-            <div style={styles.actionSection}>
-              <div style={styles.inputGrid}>
-                <div style={styles.inputGroup}>
-                  <label style={styles.inputLabel}>E (even number):</label>
-                  <input
-                    type="text"
-                    value={q7E}
-                    onChange={(e) => setQ7E(e.target.value)}
-                    style={styles.input}
-                    placeholder="e.g., 2, 4, 6..."
-                  />
-                </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.inputLabel}>Start hint (optional):</label>
-                  <input
-                    type="text"
-                    value={q7Start}
-                    onChange={(e) => setQ7Start(e.target.value)}
-                    style={styles.input}
-                    placeholder="Starting prime"
-                  />
-                </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.inputLabel}>Max attempts (optional):</label>
-                  <input
-                    type="text"
-                    value={q7Attempts}
-                    onChange={(e) => setQ7Attempts(e.target.value)}
-                    style={styles.input}
-                    placeholder="Default: 20000"
-                  />
-                </div>
-              </div>
-              <button
-                onClick={() => runQuestion7(q7E, q7Start, q7Attempts)}
-                disabled={isStreaming || !q7E.trim()}
-                style={{
-                  ...styles.actionButton,
-                  backgroundColor: (isStreaming || !q7E.trim()) ? '#6b7280' : 
-                    (hoveredButton === 'q7' ? buttonColors[7].hover : buttonColors[7].normal),
-                  ...((isStreaming || !q7E.trim()) ? styles.actionButtonDisabled : {})
-                }}
-                onMouseEnter={() => setHoveredButton('q7')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {isStreaming ? 'Running...' : 'Run Question 7'}
-              </button>
-            </div>
-          )}
-
           {/* Prime Tester Section */}
-          
+          <div style={styles.streamSection}>
+            <h2 style={styles.streamTitle}>🧮 Prime Tester</h2>
+            <div style={styles.inputGrid}>
+              <div style={styles.inputGroup}>
+                <label style={styles.inputLabel}>Enter number to test:</label>
+                <input
+                  type="text"
+                  value={primeNumber}
+                  onChange={(e) => setPrimeNumber(e.target.value)}
+                  placeholder="Enter a large number..."
+                  style={styles.input}
+                  className="input"
+                />
+              </div>
+            </div>
+            <button
+              onClick={testPrimeStream}
+              disabled={isStreaming || !primeNumber.trim()}
+              style={{
+                ...styles.actionButton,
+                opacity: (isStreaming || !primeNumber.trim()) ? 0.5 : 1,
+                cursor: (isStreaming || !primeNumber.trim()) ? 'not-allowed' : 'pointer'
+              }}
+              className="action-button"
+            >
+              🔍 Test Prime
+            </button>
+          </div>
 
-          {/* Control Buttons */}
+          {/* Question-specific controls */}
+          <div style={styles.actionSection}>
+            {selectedCard.id === 7 ? (
+              <div style={styles.streamSection}>
+                <h3 style={{...styles.streamTitle, fontSize: '1.2rem'}}>Question 7 Parameters</h3>
+                <div style={styles.inputGrid}>
+                  <div style={styles.inputGroup}>
+                    <label style={styles.inputLabel}>E value (required):</label>
+                    <input
+                      type="text"
+                      value={q7E}
+                      onChange={(e) => setQ7E(e.target.value)}
+                      placeholder="Enter E value..."
+                      style={styles.input}
+                      className="input"
+                    />
+                  </div>
+                  <div style={styles.inputGroup}>
+                    <label style={styles.inputLabel}>Start value (optional):</label>
+                    <input
+                      type="text"
+                      value={q7Start}
+                      onChange={(e) => setQ7Start(e.target.value)}
+                      placeholder="Enter start value..."
+                      style={styles.input}
+                      className="input"
+                    />
+                  </div>
+                  <div style={styles.inputGroup}>
+                    <label style={styles.inputLabel}>Max attempts (optional):</label>
+                    <input
+                      type="text"
+                      value={q7Attempts}
+                      onChange={(e) => setQ7Attempts(e.target.value)}
+                      placeholder="Enter max attempts..."
+                      style={styles.input}
+                      className="input"
+                    />
+                  </div>
+                </div>
+                <button
+                  onClick={() => runQuestion7(q7E, q7Start, q7Attempts)}
+                  disabled={isStreaming || !q7E.trim()}
+                  style={{
+                    ...styles.actionButton,
+                    opacity: (isStreaming || !q7E.trim()) ? 0.5 : 1,
+                    cursor: (isStreaming || !q7E.trim()) ? 'not-allowed' : 'pointer'
+                  }}
+                  className="action-button"
+                >
+                  🚀 Run Question 7
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={selectedCard.id === 1 ? runQuestion1 : selectedCard.id === 2 ? runQuestion2 : selectedCard.id === 3 ? runQuestion3 : selectedCard.id === 4 ? runQuestion4 : selectedCard.id === 5 ? runQuestion5 : runQuestion6}
+                disabled={isStreaming}
+                style={{
+                  ...styles.actionButton,
+                  opacity: isStreaming ? 0.5 : 1,
+                  cursor: isStreaming ? 'not-allowed' : 'pointer'
+                }}
+                className="action-button"
+              >
+                🚀 Run Question {selectedCard.id}
+              </button>
+            )}
+          </div>
+
+          {/* Stream Controls */}
           {isStreaming && (
-            <div style={styles.controlSection}>
+            <div style={styles.actionSection}>
               <button
                 onClick={stopStream}
-                style={{
-                  ...styles.stopButton,
-                  backgroundColor: hoveredButton === 'stop' ? styles.stopButtonHover.backgroundColor : styles.stopButton.backgroundColor
-                }}
-                onMouseEnter={() => setHoveredButton('stop')}
-                onMouseLeave={() => setHoveredButton(null)}
+                style={styles.stopButton}
+                className="stop-button"
               >
-                Stop Stream
+                🛑 Stop Stream
               </button>
             </div>
           )}
 
           {/* Stream Output */}
           <div style={styles.streamSection}>
-            <h3 style={styles.streamTitle}>🔍 Live Output</h3>
+            <h2 style={styles.streamTitle}>📡 Live Stream Output</h2>
             <div style={styles.streamOutput}>
               {streamLogs.length === 0 ? (
-                <div style={styles.streamEmpty}>No output yet. Click a button to start.</div>
+                <div style={styles.streamEmpty}>Waiting for stream data...</div>
               ) : (
                 streamLogs.map((log, index) => (
                   <div key={index} style={styles.streamLine}>
@@ -841,88 +773,49 @@ function App() {
   }
 
   return (
-  <div style={styles.appContainer}>
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h1 style={styles.mainTitle}>
-          🔢 Prime Explorer
-        </h1>
-        <p style={styles.subtitle}>
-          Explore fascinating prime number problems with real-time Miller-Rabin testing and witness visualization
-        </p>
-      </div>
-
-      {/* ADD Prime Tester Section HERE - on the main page */}
-      <div style={styles.primeTesterSection}>
-        <h3 style={styles.primeTesterTitle}>🧪 Prime Tester</h3>
-        <div style={styles.primeTesterInputs}>
-          <input
-            type="text"
-            value={primeNumber}
-            onChange={(e) => setPrimeNumber(e.target.value)}
-            style={styles.primeTesterInput}
-            placeholder="Enter a number to test for primality..."
-          />
-          <button
-            onClick={testPrimeStream}
-            disabled={isStreaming || !primeNumber.trim()}
-            style={{
-              ...styles.actionButton,
-              backgroundColor: (isStreaming || !primeNumber.trim()) ? '#6b7280' : 
-                (hoveredButton === 'test' ? buttonColors[2].hover : buttonColors[2].normal),
-              ...((isStreaming || !primeNumber.trim()) ? styles.actionButtonDisabled : {})
-            }}
-            onMouseEnter={() => setHoveredButton('test')}
-            onMouseLeave={() => setHoveredButton(null)}
-          >
-            {isStreaming ? 'Testing...' : 'Test Prime'}
-          </button>
+    <div style={styles.appContainer}>
+      <div style={styles.container}>
+        <div style={styles.header}>
+          <h1 style={styles.mainTitle}>Prime Number Explorer</h1>
+          <p style={styles.subtitle}>
+            Explore fascinating prime number problems with real-time Miller-Rabin testing and witness visualization
+          </p>
         </div>
-      </div>
-
-      {/* ADD Stream Output Section HERE if you want it on main page too */}
-      {streamLogs.length > 0 && (
-        <div style={styles.streamSection}>
-          <h3 style={styles.streamTitle}>🔍 Prime Test Results</h3>
-          <div style={styles.streamOutput}>
-            {streamLogs.map((log, index) => (
-              <div key={index} style={styles.streamLine}>
-                {formatLogEntry(log)}
+        
+        <div style={styles.cardGrid}>
+          {questions.map((question) => (
+            <div
+              key={question.id}
+              style={styles.evervaultCardContainer}
+              className="evervault-card"
+              onClick={() => setSelectedCard(question)}
+              onMouseMove={(e) => handleCardMouseMove(e, question.id)}
+            >
+              {/* Background pattern overlay */}
+              <div 
+                style={styles.backgroundPattern} 
+                className="background-pattern"
+              />
+              
+              {/* Random text overlay */}
+              <div 
+                style={styles.textOverlay} 
+                className="text-overlay"
+              >
+                {cardRandomStrings[question.id] || ''}
               </div>
-            ))}
-          </div>
+              
+              {/* Card content */}
+              <div style={styles.questionCard} className="question-card">
+                <h3 style={styles.cardTitle}>{question.title}</h3>
+                <p style={styles.cardDescription}>{question.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
-
-      <div style={styles.cardGrid}>
-        {questions.map((question) => (
-          <div
-            key={question.id}
-            onClick={() => setSelectedCard(question)}
-            onMouseEnter={() => setHoveredCard(question.id)}
-            onMouseLeave={() => setHoveredCard(null)}
-            style={{
-              ...styles.questionCard,
-              background: questionColors[question.id],
-              ...(hoveredCard === question.id ? styles.questionCardHover : {})
-            }}
-          >
-            <h3 style={styles.cardTitle}>
-              Question {question.id}
-            </h3>
-            <h4 style={styles.cardSubtitle}>
-              {question.title}
-            </h4>
-            <p style={styles.cardDescription}>
-              {question.description}
-            </p>
-          </div>
-        ))}
       </div>
     </div>
-  </div>
-);
-
+  );
 }
 
 export default App;
