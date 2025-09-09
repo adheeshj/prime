@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+
+
 const styles = {
   // Main container styles
   appContainer: {
@@ -334,6 +336,12 @@ function App() {
   const [q7Start, setQ7Start] = useState("");
   const [q7Attempts, setQ7Attempts] = useState("");
   const [cardRandomStrings, setCardRandomStrings] = useState({});
+  const logsEndRef = useRef(null);
+  useEffect(() => {
+  if (logsEndRef.current) {
+    logsEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+}, [streamLogs]);
 
   // Add global styles
   useEffect(() => {
@@ -614,8 +622,39 @@ function App() {
             return `🏆 FOUND PRIME: i=${log.i}, number=${log.number} (via ${log.method})`;
           }
         }
+      case 'brocard_success':
+        return `🏆 BROCARD SUCCESS: ${log.message} Found ${log.primes_found.length} primes between ${log.p1}² and ${log.p2}²`;
+      case 'brocard_failed':
+        return `❌ BROCARD FAILED: ${log.message}`;
       case 'complete':
-        return `🎊 COMPLETE: ${log.message}`;
+        let result = `🎊 COMPLETE: ${log.message}`;
+        // Add the list of found primes if available
+        if (log.primes && log.primes.length > 0) {
+          result += '\n📋 Found Primes:';
+          log.primes.forEach((prime, index) => {
+            if (Array.isArray(prime) && prime.length === 2) {
+              // Handle [n, repunit] format from Q2
+              result += `\n   ${index + 1}. N=${prime[0]} → ${prime[1]}`;
+            } else if (typeof prime === 'object' && prime.prime) {
+              // Handle Q4 format: {prime: number, position: number}
+              result += `\n   ${prime.position || index + 1}. ${prime.prime.toLocaleString()}`;
+            } else if (typeof prime === 'object' && prime.n) {
+              // Handle object format with n property
+              result += `\n   ${index + 1}. N=${prime.n} → R_${prime.n}`;
+            } else if (typeof prime === 'object') {
+              // Handle any other object format by showing JSON
+              result += `\n   ${index + 1}. ${JSON.stringify(prime)}`;
+            } else {
+              // Handle primitive values
+              result += `\n   ${index + 1}. ${prime}`;
+            }
+          });
+        }
+        // Show additional Q4-specific info
+        if (log.conjecture_verified !== undefined) {
+          result += `\n🔬 Brocard's Conjecture: ${log.conjecture_verified ? '✅ VERIFIED' : '❌ NOT VERIFIED'}`;
+        }
+        return result;
       case 'error':
         return `❌ Error: ${log.message}`;
       default:
@@ -641,34 +680,7 @@ function App() {
           </div>
 
           {/* Prime Tester Section */}
-          <div style={styles.streamSection}>
-            <h2 style={styles.streamTitle}>🧮 Prime Tester</h2>
-            <div style={styles.inputGrid}>
-              <div style={styles.inputGroup}>
-                <label style={styles.inputLabel}>Enter number to test:</label>
-                <input
-                  type="text"
-                  value={primeNumber}
-                  onChange={(e) => setPrimeNumber(e.target.value)}
-                  placeholder="Enter a large number..."
-                  style={styles.input}
-                  className="input"
-                />
-              </div>
-            </div>
-            <button
-              onClick={testPrimeStream}
-              disabled={isStreaming || !primeNumber.trim()}
-              style={{
-                ...styles.actionButton,
-                opacity: (isStreaming || !primeNumber.trim()) ? 0.5 : 1,
-                cursor: (isStreaming || !primeNumber.trim()) ? 'not-allowed' : 'pointer'
-              }}
-              className="action-button"
-            >
-              🔍 Test Prime
-            </button>
-          </div>
+          
 
           {/* Question-specific controls */}
           <div style={styles.actionSection}>
@@ -687,29 +699,25 @@ function App() {
                       className="input"
                     />
                   </div>
-                  <div style={styles.inputGroup}>
-                    <label style={styles.inputLabel}>Start value (optional):</label>
-                    <input
-                      type="text"
-                      value={q7Start}
-                      onChange={(e) => setQ7Start(e.target.value)}
-                      placeholder="Enter start value..."
-                      style={styles.input}
-                      className="input"
-                    />
-                  </div>
-                  <div style={styles.inputGroup}>
-                    <label style={styles.inputLabel}>Max attempts (optional):</label>
-                    <input
-                      type="text"
-                      value={q7Attempts}
-                      onChange={(e) => setQ7Attempts(e.target.value)}
-                      placeholder="Enter max attempts..."
-                      style={styles.input}
-                      className="input"
-                    />
-                  </div>
+                  
                 </div>
+                <button
+  onClick={() => {
+    // Generate a 50-digit even number: 1 + 48 zeros + 2
+    let num = "1" + "0".repeat(48) + "2";
+    setQ7E(num); // this will update the E value input field
+  }}
+  style={{
+    ...styles.actionButton,
+    background: "#4CAF50", // green for distinction
+    marginTop: "10px",
+    cursor: "pointer"
+  }}
+>
+  🎲 Generate 50-digit Even Number
+</button>
+
+
                 <button
                   onClick={() => runQuestion7(q7E, q7Start, q7Attempts)}
                   disabled={isStreaming || !q7E.trim()}
@@ -756,16 +764,20 @@ function App() {
           <div style={styles.streamSection}>
             <h2 style={styles.streamTitle}>📡 Live Stream Output</h2>
             <div style={styles.streamOutput}>
-              {streamLogs.length === 0 ? (
-                <div style={styles.streamEmpty}>Waiting for stream data...</div>
-              ) : (
-                streamLogs.map((log, index) => (
-                  <div key={index} style={styles.streamLine}>
-                    {formatLogEntry(log)}
-                  </div>
-                ))
-              )}
-            </div>
+  {streamLogs.length === 0 ? (
+    <div style={styles.streamEmpty}>Waiting for stream data...</div>
+  ) : (
+    streamLogs.map((log, index) => (
+      <div key={index} style={styles.streamLine}>
+        {formatLogEntry(log)}
+      </div>
+    ))
+  )}
+  {/* Invisible dummy div for autoscroll anchor */}
+  <div ref={logsEndRef} />
+</div>
+
+
           </div>
         </div>
       </div>
@@ -773,49 +785,85 @@ function App() {
   }
 
   return (
-    <div style={styles.appContainer}>
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <h1 style={styles.mainTitle}>Prime Number Explorer</h1>
-          <p style={styles.subtitle}>
-            Explore fascinating prime number problems with real-time Miller-Rabin testing and witness visualization
-          </p>
-        </div>
-        
-        <div style={styles.cardGrid}>
-          {questions.map((question) => (
-            <div
-              key={question.id}
-              style={styles.evervaultCardContainer}
-              className="evervault-card"
-              onClick={() => setSelectedCard(question)}
-              onMouseMove={(e) => handleCardMouseMove(e, question.id)}
-            >
-              {/* Background pattern overlay */}
-              <div 
-                style={styles.backgroundPattern} 
-                className="background-pattern"
-              />
-              
-              {/* Random text overlay */}
-              <div 
-                style={styles.textOverlay} 
-                className="text-overlay"
-              >
-                {cardRandomStrings[question.id] || ''}
-              </div>
-              
-              {/* Card content */}
-              <div style={styles.questionCard} className="question-card">
-                <h3 style={styles.cardTitle}>{question.title}</h3>
-                <p style={styles.cardDescription}>{question.description}</p>
-              </div>
+  <div style={styles.appContainer}>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <h1 style={styles.mainTitle}>Prime Number Assignment</h1>
+        <p style={styles.subtitle}>
+          Made By: Adheesh Joshi CH24BTECH11003
+        </p>
+      </div>
+      
+      {/* Question cards */}
+      <div style={styles.cardGrid}>
+        {questions.map((question) => (
+          <div
+            key={question.id}
+            style={styles.evervaultCardContainer}
+            className="evervault-card"
+            onClick={() => setSelectedCard(question)}
+            onMouseMove={(e) => handleCardMouseMove(e, question.id)}
+          >
+            <div style={styles.backgroundPattern} className="background-pattern" />
+            <div style={styles.textOverlay} className="text-overlay">
+              {cardRandomStrings[question.id] || ''}
             </div>
-          ))}
+            <div style={styles.questionCard} className="question-card">
+              <h3 style={styles.cardTitle}>{question.title}</h3>
+              <p style={styles.cardDescription}>{question.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ✅ Prime Tester only on main page */}
+      <div style={styles.streamSection}> 
+        <h2 style={styles.streamTitle}>🧮 Prime Tester</h2>
+        <div style={styles.inputGrid}>
+          <div style={styles.inputGroup}>
+            <label style={styles.inputLabel}>Enter number to test:</label>
+            <input
+              type="text"
+              value={primeNumber}
+              onChange={(e) => setPrimeNumber(e.target.value)}
+              placeholder="Enter a large number..."
+              style={styles.input}
+              className="input"
+            />
+          </div>
+        </div>
+        <button
+          onClick={testPrimeStream}
+          disabled={isStreaming || !primeNumber.trim()}
+          style={{
+            ...styles.actionButton,
+            opacity: (isStreaming || !primeNumber.trim()) ? 0.5 : 1,
+            cursor: (isStreaming || !primeNumber.trim()) ? 'not-allowed' : 'pointer'
+          }}
+          className="action-button"
+        >
+          🔍 Test Prime
+        </button>
+      </div>
+
+      <div style={styles.streamSection}>
+        <h2 style={styles.streamTitle}>📡 Live Stream Output</h2>
+        <div style={styles.streamOutput}>
+          {streamLogs.length === 0 ? (
+            <div style={styles.streamEmpty}>Waiting for stream data...</div>
+          ) : (
+            streamLogs.map((log, index) => (
+              <div key={index} style={styles.streamLine}>
+                {formatLogEntry(log)}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
+
 
 export default App;

@@ -21,11 +21,8 @@ def make_number(i: int) -> int:
     return n
 
 def solve_q1_stream():
-    """Stream the solution process for Question 1"""
-    
     yield {"type": "info", "message": "Starting search for palindromic prime between 1000-3000..."}
-    
-    for i in range(2444, 3001):
+    for i in range(5, 15):
         n = make_number(i)
         
         # Only show the number if it's reasonably sized, otherwise just show length
@@ -51,7 +48,6 @@ def solve_q1_stream():
                 yield {"type": "rejected", "reason": "divisible by small prime"}
                 continue
 
-        # Miller-Rabin test with streaming
         yield {"type": "info", "message": f"Running Miller-Rabin test for i={i}..."}
         
         is_prime = True
